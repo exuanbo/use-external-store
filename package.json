@@ -1,7 +1,7 @@
 {
   "name": "use-external-store",
   "packageManager": "yarn@4.4.1",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "A lightweight React hook for managing external state",
   "files": [
     "dist"
