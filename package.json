@@ -1,0 +1,69 @@
+{
+  "name": "use-external-store",
+  "packageManager": "yarn@4.4.1",
+  "version": "0.0.0",
+  "description": "A lightweight React hook for managing external state",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/es/index.mjs",
+  "types": "./dist/cjs/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/es/index.d.mts",
+        "default": "./dist/es/index.mjs"
+      },
+      "require": {
+        "types": "./dist/cjs/index.d.ts",
+        "default": "./dist/cjs/index.js"
+      }
+    }
+  },
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsc && bunchee"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/exuanbo/use-external-store.git"
+  },
+  "keywords": [
+    "react",
+    "useSyncExternalStore",
+    "use-sync-external-store",
+    "zustand",
+    "use-zustand",
+    "redux",
+    "react-redux"
+  ],
+  "author": "exuanbo <exuanbo@protonmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/exuanbo/use-external-store/issues"
+  },
+  "homepage": "https://github.com/exuanbo/use-external-store#readme",
+  "devDependencies": {
+    "@types/react": "^18.3.5",
+    "@types/react-dom": "^18.3.0",
+    "@vitest/coverage-v8": "^2.0.5",
+    "bunchee": "^5.4.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "typescript": "^5.6.2",
+    "vitest": "^2.0.5"
+  },
+  "peerDependencies": {
+    "@types/react": ">=17.0.0",
+    "react": ">=17.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@types/react": {
+      "optional": true
+    },
+    "react": {
+      "optional": true
+    }
+  }
+}
