@@ -20,7 +20,7 @@ pnpm add use-external-store
 
 ## Differences from useSyncExternalStore
 
-`useSyncExternalStore` has the "Sync" behavior that doesn't work nicely with concurrent rendering. We can't use `startTransition` as expected.
+`useSyncExternalStore` has the "Sync" behavior that doesn't work nicely with concurrent rendering.
 
 `useExternalStore` is implemented only with `useReducer` and `useEffect`. It suffers from tearing, but works better with concurrent rendering.
 
@@ -46,9 +46,9 @@ interface Store<State> {
   subscribe(listener: () => void): () => void;
 }
 
-function defineStore<State>(store: Store<State>): Store<State>;
+declare function defineStore<State>(store: Store<State>): Store<State>;
 
-function useExternalStore<State, Selection>(
+declare function useExternalStore<State, Selection>(
   store: Store<State>,
   selector: (state: State) => Selection,
   isEqual?: (a: Selection, b: Selection) => boolean
