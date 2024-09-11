@@ -29,11 +29,18 @@ pnpm add use-external-store
 ```tsx
 import { useExternalStore } from "use-external-store";
 
-// can be zustand, redux, etc.
-import { store } from "./store";
+// created with zustand, redux, etc.
+import { type RootState, store } from "./store";
+
+function useStore<Selection>(
+  selector: (state: RootState) => Selection,
+  isEqual?: (a: Selection, b: Selection) => boolean
+) {
+  return useExternalStore(store, selector, isEqual);
+}
 
 function App() {
-  const count = useExternalStore(store, (state) => state.count);
+  const count = useStore((state) => state.count);
   return <div>{count}</div>;
 }
 ```
@@ -46,9 +53,9 @@ interface Store<State> {
   subscribe(listener: () => void): () => void;
 }
 
-declare function defineStore<State>(store: Store<State>): Store<State>;
+function defineStore<State>(store: Store<State>): Store<State>;
 
-declare function useExternalStore<State, Selection>(
+function useExternalStore<State, Selection>(
   store: Store<State>,
   selector: (state: State) => Selection,
   isEqual?: (a: Selection, b: Selection) => boolean
