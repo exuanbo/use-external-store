@@ -6,10 +6,10 @@ interface Memo<Snapshot, Selection> {
   selection: Selection;
 }
 
-export function init<State, Selection>([store, selector]: [
+export function init<State, Selection>(
   store: Store<State>,
   selector: (state: State) => Selection
-]): Memo<State, Selection> {
+): Memo<State, Selection> {
   const snapshot = store.getState();
   const selection = selector(snapshot);
   return {

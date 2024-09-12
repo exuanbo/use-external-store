@@ -20,7 +20,7 @@ export function useExternalStore<State, Selection>(
   const [memo, dispatch] = useReducer(
     Memo.getReducer(selector, isEqual),
     tuple(store, selector),
-    Memo.init
+    (args) => Memo.init(...args)
   );
 
   useEffect(() => {
@@ -31,7 +31,7 @@ export function useExternalStore<State, Selection>(
   }, [store]);
 
   if (memo.store !== store) {
-    const nextMemo = Memo.init([store, selector]);
+    const nextMemo = Memo.init(store, selector);
     dispatch(Memo.update(nextMemo));
     return nextMemo.selection;
   }
