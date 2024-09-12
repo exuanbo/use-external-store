@@ -3,7 +3,7 @@
 [![npm](https://img.shields.io/npm/v/use-external-store.svg)](https://www.npmjs.com/package/use-external-store)
 [![npm bundle size](https://img.shields.io/bundlephobia/minzip/use-external-store.svg?label=bundle%20size)](https://bundlephobia.com/package/use-external-store)
 
-A lightweight React hook for managing external state inspired by [`use-zustand`](https://github.com/zustandjs/use-zustand).
+A lightweight React hook for subscribing to external state stores, optimized for concurrent rendering and inspired by [`use-zustand`](https://github.com/zustandjs/use-zustand).
 
 ## Installation
 

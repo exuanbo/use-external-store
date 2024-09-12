@@ -2,7 +2,7 @@
   "name": "use-external-store",
   "packageManager": "yarn@4.4.1",
   "version": "0.1.0",
-  "description": "A lightweight React hook for managing external state",
+  "description": "A lightweight React hook for subscribing to external state stores, optimized for concurrent rendering and inspired by use-zustand",
   "files": [
     "dist"
   ],
@@ -31,8 +31,9 @@
   },
   "keywords": [
     "react",
-    "useSyncExternalStore",
     "use-sync-external-store",
+    "use-store",
+    "use-selector",
     "zustand",
     "use-zustand",
     "redux",
