@@ -6,7 +6,6 @@
     // Modules
     "module": "ESNext",
     "moduleResolution": "Bundler",
-    "resolveJsonModule": true,
 
     // Emit
     "noEmit": true,
@@ -21,7 +20,6 @@
     // Language and Environment
     "lib": ["ES2022"],
     "target": "ES2022",
-    "useDefineForClassFields": true,
 
     // Completeness
     "skipLibCheck": true
