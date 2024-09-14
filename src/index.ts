@@ -25,15 +25,13 @@ export function useExternalStore<State, Selection>(
 
   useEffect(() => {
     dispatch(Memo.update());
-    return store.subscribe(() => {
-      dispatch(Memo.update());
-    });
+    return store.subscribe(() => dispatch(Memo.update()));
   }, [store]);
 
-  if (memo.store !== store) {
+  if (Memo.getStore(memo) !== store) {
     const nextMemo = Memo.init(store, selector);
     dispatch(Memo.update(nextMemo));
-    return nextMemo.selection;
+    return Memo.getSelection(nextMemo);
   }
-  return memo.selection;
+  return Memo.getSelection(memo);
 }

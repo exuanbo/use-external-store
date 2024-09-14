@@ -1,9 +1,23 @@
 import type { Store } from "./index";
 
-interface Memo<Snapshot, Selection> {
-  store: Store<Snapshot>;
-  snapshot: Snapshot;
-  selection: Selection;
+type Memo<Snapshot, Selection> = [Store<Snapshot>, Snapshot, Selection];
+
+const enum Key {
+  Store,
+  Snapshot,
+  Selection,
+}
+
+export function getStore<Snapshot>(
+  memo: Memo<Snapshot, unknown>
+): Store<Snapshot> {
+  return memo[Key.Store];
+}
+
+export function getSelection<Selection>(
+  memo: Memo<unknown, Selection>
+): Selection {
+  return memo[Key.Selection];
 }
 
 export function init<State, Selection>(
@@ -12,23 +26,15 @@ export function init<State, Selection>(
 ): Memo<State, Selection> {
   const snapshot = store.getState();
   const selection = selector(snapshot);
-  return {
-    store,
-    snapshot,
-    selection,
-  };
+  return [store, snapshot, selection];
 }
 
-interface Action<Snapshot, Selection> {
-  nextMemo?: Memo<Snapshot, Selection>;
-}
+type Action<Snapshot, Selection> = [Memo<Snapshot, Selection> | undefined];
 
 export function update<Snapshot, Selection>(
   memo?: Memo<Snapshot, Selection>
 ): Action<Snapshot, Selection> {
-  return {
-    nextMemo: memo,
-  };
+  return [memo];
 }
 
 export function getReducer<State, Selection>(
@@ -37,24 +43,20 @@ export function getReducer<State, Selection>(
 ) {
   return (
     memo: Memo<State, Selection>,
-    { nextMemo }: Action<State, Selection>
-  ) => {
+    [nextMemo]: Action<State, Selection>
+  ): Memo<State, Selection> => {
     if (nextMemo) {
       return nextMemo;
     }
-    const nextSnapshot = memo.store.getState();
-    if (Object.is(memo.snapshot, nextSnapshot)) {
+    const nextSnapshot = memo[Key.Store].getState();
+    if (Object.is(memo[Key.Snapshot], nextSnapshot)) {
       return memo;
     }
     const nextSelection = selector(nextSnapshot);
-    if (isEqual(memo.selection, nextSelection)) {
-      memo.snapshot = nextSnapshot;
+    if (isEqual(memo[Key.Selection], nextSelection)) {
+      memo[Key.Snapshot] = nextSnapshot;
       return memo;
     }
-    return {
-      ...memo,
-      snapshot: nextSnapshot,
-      selection: nextSelection,
-    };
+    return [memo[Key.Store], nextSnapshot, nextSelection];
   };
 }
