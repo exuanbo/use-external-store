@@ -3,9 +3,15 @@ import { useEffect, useReducer } from "react";
 import * as Memo from "./memo";
 import { tuple } from "./utils";
 
+export type ListenerCallback = () => void;
+
+export interface Unsubscribe {
+  (): void;
+}
+
 export interface Store<State> {
-  getState(): State;
-  subscribe(listener: () => void): () => void;
+  getState: () => State;
+  subscribe: (listener: ListenerCallback) => Unsubscribe;
 }
 
 export function defineStore<State>(store: Store<State>) {
