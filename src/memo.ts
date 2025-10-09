@@ -1,6 +1,6 @@
-import type { Store } from "./index";
+import type { ReadonlyStore } from "./index";
 
-type Memo<Snapshot, Selection> = [Store<Snapshot>, Snapshot, Selection];
+type Memo<Snapshot, Selection> = [ReadonlyStore<Snapshot>, Snapshot, Selection];
 
 const enum Key {
   Store,
@@ -10,7 +10,7 @@ const enum Key {
 
 export function getStore<Snapshot>(
   memo: Memo<Snapshot, unknown>
-): Store<Snapshot> {
+): ReadonlyStore<Snapshot> {
   return memo[Key.Store];
 }
 
@@ -21,7 +21,7 @@ export function getSelection<Selection>(
 }
 
 export function init<State, Selection>(
-  store: Store<State>,
+  store: ReadonlyStore<State>,
   selector: (state: State) => Selection
 ): Memo<State, Selection> {
   const snapshot = store.getState();

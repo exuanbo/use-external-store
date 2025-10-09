@@ -9,17 +9,17 @@ export interface Unsubscribe {
   (): void;
 }
 
-export interface Store<State> {
+export interface ReadonlyStore<State> {
   getState: () => State;
   subscribe: (listener: ListenerCallback) => Unsubscribe;
 }
 
-export function defineStore<State>(store: Store<State>) {
+export function defineStore<State>(store: ReadonlyStore<State>) {
   return store;
 }
 
 export function useExternalStore<State, Selection>(
-  store: Store<State>,
+  store: ReadonlyStore<State>,
   selector: (state: State) => Selection,
   isEqual?: (a: Selection, b: Selection) => boolean
 ) {
