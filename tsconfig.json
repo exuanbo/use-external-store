@@ -11,10 +11,7 @@
     "noEmit": true,
 
     // Interop Constraints
-    "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "isolatedModules": true,
     "verbatimModuleSyntax": true,
 
     // Language and Environment
