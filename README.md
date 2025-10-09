@@ -48,15 +48,17 @@ function App() {
 ## API
 
 ```ts
-interface Store<State> {
+interface ReadonlyStore<State> {
   getState(): State;
   subscribe(listener: () => void): () => void;
 }
 
-function defineStore<State>(store: Store<State>): Store<State>;
+function defineStore<State>(
+  store: ReadonlyStore<State>
+): ReadonlyStore<State>;
 
 function useExternalStore<State, Selection>(
-  store: Store<State>,
+  store: ReadonlyStore<State>,
   selector: (state: State) => Selection,
   isEqual?: (a: Selection, b: Selection) => boolean
 ): Selection;
