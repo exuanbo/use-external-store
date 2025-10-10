@@ -1,7 +1,7 @@
 {
   "name": "use-external-store",
   "packageManager": "yarn@4.10.3",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "A lightweight React hook for subscribing to external state stores, optimized for concurrent rendering and inspired by use-zustand",
   "files": [
     "dist"
