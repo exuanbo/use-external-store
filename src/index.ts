@@ -1,7 +1,6 @@
 import { useEffect, useReducer } from "react";
 
 import * as Memo from "./memo";
-import { tuple } from "./utils";
 
 export type ListenerCallback = () => void;
 
@@ -25,8 +24,8 @@ export function useExternalStore<State, Selection>(
 ) {
   const [memo, dispatch] = useReducer(
     Memo.getReducer(selector, isEqual),
-    tuple(store, selector),
-    (args) => Memo.init(...args)
+    {},
+    () => Memo.init(store, selector)
   );
 
   useEffect(() => {
