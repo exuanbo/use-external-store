@@ -22,21 +22,19 @@ export function useExternalStore<State, Selection>(
   selector: (state: State) => Selection,
   isEqual?: (a: Selection, b: Selection) => boolean
 ) {
-  const [memo, dispatch] = useReducer(
+  let [memo, dispatch] = useReducer(
     Memo.getReducer(selector, isEqual),
     {},
     () => Memo.init(store, selector)
   );
 
   useEffect(() => {
-    dispatch(Memo.update());
-    return store.subscribe(() => dispatch(Memo.update()));
+    dispatch([]);
+    return store.subscribe(() => dispatch([]));
   }, [store]);
 
   if (Memo.getStore(memo) !== store) {
-    const nextMemo = Memo.init(store, selector);
-    dispatch(Memo.update(nextMemo));
-    return Memo.getSelection(nextMemo);
+    dispatch([memo = Memo.init(store, selector)]);
   }
   return Memo.getSelection(memo);
 }
