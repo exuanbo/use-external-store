@@ -1,11 +1,15 @@
 import type { ReadonlyStore } from "./index";
 
-type Memo<Snapshot, Selection> = [ReadonlyStore<Snapshot>, Snapshot, Selection];
-
 const enum Key {
   Store,
   Snapshot,
   Selection,
+}
+
+interface Memo<Snapshot, Selection> {
+  [Key.Store]: ReadonlyStore<Snapshot>;
+  [Key.Snapshot]: Snapshot;
+  [Key.Selection]: Selection;
 }
 
 export const getStore = <Snapshot>(memo: Memo<Snapshot, unknown>) => memo[Key.Store];
@@ -21,14 +25,14 @@ export const init = <State, Selection>(
   return [store, snapshot, selection];
 };
 
-type Action<Snapshot, Selection> = [Memo<Snapshot, Selection>] | [];
+type MemoUpdate<Snapshot, Selection> = [Memo<Snapshot, Selection>] | [];
 
 export const getReducer = <State, Selection>(
   selector: (state: State) => Selection,
   isEqual: (a: Selection, b: Selection) => boolean = Object.is
 ) => (
   memo: Memo<State, Selection>,
-  [nextMemo]: Action<State, Selection>
+  [nextMemo]: MemoUpdate<State, Selection>
 ): Memo<State, Selection> => {
   if (nextMemo) {
     return nextMemo;
